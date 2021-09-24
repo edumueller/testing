@@ -8,20 +8,29 @@ beforeEach(() => {
   wrapped = mount(<CommentBox />);
 });
 
-afterEach(() => {});
-
 it("has a textarea and a button", () => {
   expect(wrapped.find("textarea")).toHaveLength(1);
   expect(wrapped.find("button")).toHaveLength(1);
 });
 
-it("has a text area that users can type in", () => {
-  wrapped.find("textarea").simulate("change", {
-    target: {
-      value: "new comment",
-    },
+describe("the text area", () => {
+  beforeEach(() => {
+    wrapped.find("textarea").simulate("change", {
+      target: {
+        value: "new comment",
+      },
+    });
+    wrapped.update();
   });
-  wrapped.update();
+  it("has a text area that users can type in", () => {
+    expect(wrapped.find("textarea").prop("value")).toEqual("new comment");
+  });
 
-  expect(wrapped.find("textarea").prop("value")).toEqual("new comment");
+  it("submits the form and clears textarea", () => {
+    expect(wrapped.find("textarea").prop("value")).toEqual("new comment");
+
+    wrapped.find("form").simulate("submit");
+    wrapped.update();
+    expect(wrapped.find("textarea").prop("value")).toEqual("");
+  });
 });
