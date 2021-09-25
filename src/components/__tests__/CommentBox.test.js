@@ -15,7 +15,7 @@ beforeEach(() => {
 
 it("has a textarea and a button", () => {
   expect(wrapped.find("textarea")).toHaveLength(1);
-  expect(wrapped.find("button")).toHaveLength(1);
+  expect(wrapped.find("button")).toHaveLength(2);
 });
 
 describe("the text area", () => {
